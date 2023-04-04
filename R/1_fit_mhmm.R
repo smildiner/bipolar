@@ -139,7 +139,7 @@ with_progress({
                                         nrow = m, ncol = m-1, byrow = FALSE))
       
       # Starting values for the group level emission distribution
-      em_start_emiss <- vector("list", n_dep)
+      start_emiss <- vector("list", n_dep)
       
       for(q in 1:n_dep){
         start_emiss[[q]] <- matrix(c(runif(m,
