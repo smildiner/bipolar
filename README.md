@@ -4,9 +4,10 @@ This repository contains R code to reproduce the results of "Mildiner Moraga, S.
 
 ## The repository includes three main folders:
 
- - `data`: empirical data folder (not included due to privacy issues)
- - `R`: R scripts to fit Bayesian multilevel HMM on empirical data, analyse main results, run simulation, decode simulation results, and analyse simulation results.
- - `results`: main analysis results from fitting the Bayesian multilevel HMM on the empirical data.
+ - `data`: empirical data folder (not included due to privacy issues).
+ - `outputs`: contains the folders `figures` (figures included in the manuscript) and `res` (each of the outputs for the simulated data).
+ - `R`: R scripts to fit Bayesian multilevel HMM on empirical data, analyse main results, run simulation, decode simulation results, and analyse simulation results, and necessary utility functions.
+ - `results`: main analysis results from fitting the Bayesian multilevel HMM on the empirical data; contains the main object generated as output after fitting the multilevel HMM.
 
 ## Reproducing Results
 
@@ -15,9 +16,10 @@ To reproduce the results of the study, follow these steps:
 1. Download the code in the `R` folder and the empirical data (upon request from researchers).
 2. Run the R scripts in the following order:
   1. `1_fit_mhmm.R`: fit the Bayesian multilevel HMM on the empirical data.
-  2. `2_analyse_main_results.R`: analyse the main results from fitting the Bayesian multilevel HMM on the empirical data.
-  3. `3_run_simulation.R`: run the simulation.
-  4. `4_analyse_simulation_results.R`: decode and analyse the simulation results.
+  2. `2_main_results.R`: main results from fitting the Bayesian multilevel HMM on the empirical data.
+  3. `3_supp_results.R`: supplementary results from fitting the Bayesian multilevel HMM on the empirical data.
+  4. `4_run_simulation.R`: run the simulation.
+  5. `5_analyse_simulation_results.R`: decode and analyse the simulation results.
 
 Notice that the simulation is computationally intensive; it was run in the [Dutch National Supercomputer Snellius](https://www.surf.nl/en/dutch-national-supercomputer-snellius) using a single node with 128 cores.
 

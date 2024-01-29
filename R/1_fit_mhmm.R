@@ -20,15 +20,21 @@ data <- foreign::read.spss("data/ESM bipolar cleaned data_UU project.sav", to.da
 
 #------------------------------------------------------------------------------#
 
-# Put data in right format
-train_df_mar <- data %>%
+# Put data in right format and elongate data with "missing" night occasions
+extended_data <- data %>%
+  group_by(patient_id) %>%
+  summarise(maxdays = max(dayno)) %>%
+  group_by(patient_id) %>%
+  summarise(dayno = rep(1:maxdays,each=8), beepno = rep(1:8, maxdays))
+
+train_df <- train_df_mar <- left_join(extended_data, data) %>%
   dplyr::select(patient_id, time,
                 bs_diary_5, bs_diary_13, bs_diary_22,
                 bs_diary_15, bs_diary_9, bs_diary_10,
                 bs_diary_7, bs_diary_11, bs_diary_17,
                 bs_diary_8, bs_diary_14, bs_diary_16) %>%
   group_by(patient_id) %>%
-  mutate(patient_id = cur_group_id()) %>%
+  mutate(patient_id = cur_group_id(), time = row_number()) %>%
   ungroup() %>%
   arrange(patient_id, time) %>%
   dplyr::select(-time) %>%
@@ -164,7 +170,7 @@ with_progress({
     }
     
     class(out) <- "mHMM_cont"
-    saveRDS(out, paste0("results/out_cont_gamma_prior_emiss_prior_m",m,"_12dv_it4000_c",s,".rds"))
+    saveRDS(out, paste0("results/out_cont_gamma_prior_emiss_prior_m",m,"_12dv_it4000_c",s,"_night.rds"))
     
     p(sprintf("x=%g", s))
     
